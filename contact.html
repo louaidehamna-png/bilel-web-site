@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — ME Propreté Nice</title>
+  <meta name="description" content="Contactez ME Propreté à Nice. Devis gratuit pour nettoyage cage d'escalier, conteneurs, Airbnb, bureaux. On vous répond le jour même."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg:       #FFFFFF;
+      --bg-alt:   #F7F8FA;
+      --ink:      #1A1A2E;
+      --ink-2:    #6B7280;
+      --accent:   #00C853;
+      --accent-d: #00A843;
+      --accent-p: #E6FAF0;
+      --border:   #E5E7EB;
+      --error:    #DC2626;
+    }
+
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    body {
+      background: var(--bg); color: var(--ink);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 16px; line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      animation: pageFadeIn .48s cubic-bezier(.22,1,.36,1);
+    }
+    body.page-out {
+      opacity: 0 !important; transform: translateY(-10px);
+      transition: opacity .26s ease, transform .26s ease;
+      animation: none;
+    }
+
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent); transform-origin: left; transform: scaleX(0);
+      z-index: 9999; pointer-events: none;
+    }
+    #cur-dot, #cur-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%);
+    }
+    #cur-dot { width: 6px; height: 6px; background: var(--accent); }
+    #cur-ring {
+      width: 38px; height: 38px;
+      border: 1.5px solid rgba(0,200,83,.42);
+      transition: width .25s ease, height .25s ease, border-color .25s ease;
+    }
+    #cur-ring.big { width: 58px; height: 58px; border-color: rgba(0,200,83,.72); }
+    .cursor-custom a, .cursor-custom button, .cursor-custom .card { cursor: none; }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid transparent; transition: border-color .3s;
+    }
+    header.sc { border-bottom-color: var(--border); }
+    .logo {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 17px; font-weight: 700; color: var(--ink);
+      text-decoration: none; letter-spacing: -.3px;
+    }
+    .logo-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      animation: pulse 2.5s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,200,83,.4); }
+      50%      { box-shadow: 0 0 0 6px rgba(0,200,83,0); }
+    }
+    .nav { display: flex; align-items: center; gap: 36px; }
+    .nav a { font-size: 14px; color: var(--ink-2); text-decoration: none; font-weight: 500; transition: color .15s; }
+    .nav a:hover, .nav a.nav-active { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink); color: #fff !important;
+      padding: 11px 22px; border-radius: 100px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      display: inline-flex; align-items: center;
+      transition: background .15s; will-change: transform;
+    }
+    .nav-cta:hover { background: var(--accent) !important; }
+
+    /* ── CONTACT SECTION ─────────────────────────── */
+    .contact-sec {
+      min-height: 100svh; padding-top: 120px; padding-bottom: 80px;
+      padding-left: 48px; padding-right: 48px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px;
+      align-items: start;
+    }
+    .c-left { position: sticky; top: 100px; }
+    .sec-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.2px;
+      text-transform: uppercase; color: #007A30; margin-bottom: 10px;
+    }
+    .contact-title {
+      font-size: clamp(32px,4.2vw,58px); font-weight: 700;
+      letter-spacing: -.9px; line-height: 1.13; color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .contact-desc { font-size: 15px; color: var(--ink-2); line-height: 1.78; margin-bottom: 44px; max-width: 360px; }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .cd-item { display: flex; align-items: center; gap: 16px; }
+    .cd-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--bg-alt); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cd-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-2); margin-bottom: 2px; }
+    .cd-value { font-size: 15px; font-weight: 600; color: var(--ink); }
+    .c-phone { color: #007A30; text-decoration: none; transition: color .15s; }
+    .c-phone:hover { color: #005820; }
+
+    /* ── FORM ──────────────────────────────────────── */
+    .c-right {}
+    .f-form { display: flex; flex-direction: column; gap: 18px; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .f-group { display: flex; flex-direction: column; gap: 7px; }
+    .f-label { font-size: 12px; font-weight: 700; letter-spacing: .6px; color: var(--ink); }
+    .f-input, .f-textarea, .f-select {
+      padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 14px; font-family: inherit; color: var(--ink); background: var(--bg);
+      outline: none; transition: border-color .18s, box-shadow .18s;
+      width: 100%;
+    }
+    .f-input::placeholder, .f-textarea::placeholder { color: var(--ink-2); opacity: .7; }
+    .f-input:focus, .f-textarea:focus, .f-select:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,200,83,.15);
+    }
+    .f-input.error, .f-textarea.error { border-color: var(--error); }
+    .f-textarea { resize: vertical; min-height: 130px; }
+    .f-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding-right: 40px; }
+    .f-submit {
+      padding: 16px 32px; background: var(--ink); color: #fff;
+      border: none; border-radius: 100px; font-size: 15px; font-weight: 600;
+      font-family: inherit; cursor: pointer; display: inline-flex; align-items: center;
+      gap: 10px; align-self: flex-start;
+      transition: background .15s; will-change: transform;
+    }
+    .f-submit:hover { background: var(--accent); }
+    .f-submit:disabled { opacity: .6; pointer-events: none; }
+    .f-note { font-size: 12px; color: var(--ink-2); line-height: 1.7; }
+    .f-success {
+      display: none; padding: 20px 24px; background: var(--accent-p);
+      border: 1.5px solid #B8E6CF; border-radius: 12px;
+      font-size: 14px; color: #007A30; font-weight: 500;
+    }
+    .f-success.show { display: flex; align-items: center; gap: 12px; }
+
+    footer { border-top: 1px solid var(--border); padding: 22px 48px; display: flex; justify-content: space-between; align-items: center; margin-top: 80px; }
+    .f-logo { font-size: 15px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .f-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    footer small { font-size: 12px; color: var(--ink-2); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      body, .cursor-custom a, .cursor-custom button { cursor: auto !important; }
+      #cur-dot, #cur-ring, .progress { display: none; }
+    }
+    @media (max-width: 980px) {
+      header, .contact-sec, footer { padding-left: 24px; padding-right: 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .c-left { position: static; }
+      body, .cursor-custom a, .cursor-custom button { cursor: auto !important; }
+      #cur-dot, #cur-ring { display: none; }
+    }
+    @media (max-width: 620px) {
+      .nav a:not(.nav-cta) { display: none; }
+      .f-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress"></div>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <header id="hd">
+    <a href="index.html" class="logo">ME <div class="logo-dot"></div> Propreté</a>
+    <nav class="nav">
+      <a href="services.html">Services</a>
+      <a href="contact.html" class="nav-active">Contact</a>
+      <a href="contact.html" class="nav-cta">Devis gratuit</a>
+    </nav>
+  </header>
+
+  <main class="contact-sec">
+    <div class="contact-grid">
+
+      <!-- LEFT INFO -->
+      <div class="c-left c-left-trig">
+        <p class="sec-label">Nous joindre</p>
+        <h1 class="contact-title">Dites-nous où.<br>On gère le reste.</h1>
+        <p class="contact-desc">
+          Un message suffit. On vous rappelle le jour même pour convenir d'un rendez-vous.
+          Devis gratuit, sans engagement.
+        </p>
+        <div class="contact-details">
+          <div class="cd-item">
+            <div class="cd-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#00C853" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <path d="M5 4h3l1 4-2 1.5a11 11 0 004.5 4.5L13 12l4 1v3a1 1 0 01-1 1C6 17 3 9 3 5a1 1 0 011-1z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="cd-label">Téléphone</p>
+              <a href="tel:+33600000000" class="cd-value c-phone">06 00 00 00 00</a>
+            </div>
+          </div>
+          <div class="cd-item">
+            <div class="cd-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#00C853" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <path d="M3 4h14l-7 7-7-7z"/>
+                <rect x="3" y="4" width="14" height="12" rx="2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="cd-label">Email</p>
+              <a href="mailto:contactmeproprete@gmail.com" class="cd-value c-phone">contactmeproprete@gmail.com</a>
+            </div>
+          </div>
+          <div class="cd-item">
+            <div class="cd-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#00C853" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <circle cx="10" cy="8" r="3"/>
+                <path d="M16 8c0 5-6 9-6 9S4 13 4 8a6 6 0 1112 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="cd-label">Zone</p>
+              <span class="cd-value">Nice · Côte d'Azur</span>
+            </div>
+          </div>
+          <div class="cd-item">
+            <div class="cd-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="#00C853" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <circle cx="10" cy="10" r="8"/>
+                <polyline points="10,6 10,10 13,12"/>
+              </svg>
+            </div>
+            <div>
+              <p class="cd-label">Disponibilité</p>
+              <span class="cd-value">Lun – Sam · 8h – 19h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT FORM -->
+      <div class="c-right c-right-trig">
+        <div class="f-success" id="success-msg" role="status" aria-live="polite">
+          <svg viewBox="0 0 20 20" fill="none" stroke="#007A30" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><polyline points="7,10 9,12 13,8"/></svg>
+          Message envoyé. On vous répond le jour même.
+        </div>
+        <form class="f-form" id="contact-form" novalidate>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="f-nom" class="f-label">Prénom &amp; nom</label>
+              <input id="f-nom" name="nom" type="text" class="f-input" placeholder="Bilel Dupont" required autocomplete="name"/>
+            </div>
+            <div class="f-group">
+              <label for="f-tel" class="f-label">Téléphone</label>
+              <input id="f-tel" name="telephone" type="tel" class="f-input" placeholder="06 00 00 00 00" required autocomplete="tel"/>
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="f-email" class="f-label">Email</label>
+            <input id="f-email" name="email" type="email" class="f-input" placeholder="vous@email.com" autocomplete="email"/>
+          </div>
+          <div class="f-group">
+            <label for="f-prestation" class="f-label">Prestation concernée</label>
+            <select id="f-prestation" name="prestation" class="f-select">
+              <option value="" disabled selected>Choisir une prestation</option>
+              <option>Conteneurs</option>
+              <option>Cage d'escalier</option>
+              <option>Espaces professionnels</option>
+              <option>Location saisonnière</option>
+              <option>Repassage</option>
+              <option>Sortie des poubelles</option>
+              <option>Souffleur de feuilles</option>
+              <option>Autre / plusieurs prestations</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label for="f-message" class="f-label">Votre demande</label>
+            <textarea id="f-message" name="message" class="f-textarea" placeholder="Adresse, fréquence souhaitée, toute info utile…" required></textarea>
+          </div>
+          <button type="submit" class="f-submit" id="submit-btn">
+            Envoyer la demande
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 10h12M12 6l4 4-4 4"/></svg>
+          </button>
+          <p class="f-note">Réponse sous 24h max. Devis gratuit, sans engagement.</p>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="f-logo">ME <div class="f-dot"></div> Propreté</div>
+    <small>Nice · Côte d'Azur · contactmeproprete@gmail.com</small>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    const hd = document.getElementById('hd');
+    window.addEventListener('scroll', () => hd.classList.toggle('sc', scrollY > 20), { passive: true });
+
+    const dot = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    if (dot && ring && window.matchMedia('(hover:hover)').matches) {
+      document.body.style.cursor = 'none';
+      document.body.classList.add('cursor-custom');
+      let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+      document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; gsap.set(dot,{x:mx,y:my}); });
+      gsap.ticker.add(() => { rx+=(mx-rx)*.1; ry+=(my-ry)*.1; gsap.set(ring,{x:rx,y:ry}); });
+      gsap.ticker.lagSmoothing(0);
+      document.querySelectorAll('a,button').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('big'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('big'));
+      });
+    }
+
+    document.querySelectorAll('.nav-cta,.f-submit').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, { x:(e.clientX-r.left-r.width/2)*.28, y:(e.clientY-r.top-r.height/2)*.28, duration:.3, ease:'power2.out', overwrite:true });
+      });
+      btn.addEventListener('mouseleave', () => gsap.to(btn, { x:0,y:0,duration:.7,ease:'elastic.out(1,.3)',overwrite:true }));
+    });
+
+    gsap.from('.c-left-trig', { x: -40, opacity: 0, duration: .8, ease: 'power3.out', delay: .15 });
+    gsap.from('.c-right-trig', { x: 40,  opacity: 0, duration: .8, ease: 'power3.out', delay: .25 });
+
+    // Form validation + submit
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('success-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+
+      form.querySelectorAll('[required]').forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('error');
+          valid = false;
+        } else {
+          field.classList.remove('error');
+        }
+      });
+
+      if (!valid) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi…';
+
+      // Encode for mailto as fallback
+      const nom   = document.getElementById('f-nom').value;
+      const tel   = document.getElementById('f-tel').value;
+      const email = document.getElementById('f-email').value;
+      const prest = document.getElementById('f-prestation').value;
+      const msg   = document.getElementById('f-message').value;
+      const body  = encodeURIComponent(`Prénom & nom : ${nom}\nTéléphone : ${tel}\nEmail : ${email}\nPrestation : ${prest}\n\nMessage :\n${msg}`);
+
+      window.open(`mailto:contactmeproprete@gmail.com?subject=Demande de devis ME Propreté&body=${body}`, '_blank');
+
+      form.style.display = 'none';
+      successMsg.classList.add('show');
+    });
+
+    form.querySelectorAll('.f-input,.f-textarea').forEach(field => {
+      field.addEventListener('input', () => field.classList.remove('error'));
+    });
+
+    // Page transitions
+    document.querySelectorAll('a').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('http')) {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.add('page-out');
+          setTimeout(() => window.location.href = href, 280);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
