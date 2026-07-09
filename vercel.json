@@ -1,4 +1,8 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false
+  "rewrites": [
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/blog/nettoyage-cage-escalier-nice", "destination": "/blog/nettoyage-cage-escalier-nice.html" },
+    { "source": "/blog/nettoyage-airbnb-nice", "destination": "/blog/nettoyage-airbnb-nice.html" },
+    { "source": "/blog/nettoyage-conteneurs-nice", "destination": "/blog/nettoyage-conteneurs-nice.html" }
+  ]
 }
