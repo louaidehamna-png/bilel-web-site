@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BNC — Sélection de templates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0e0e0e; font-size: 16px; }
+
+    /* ───── SWITCHER ───── */
+    #switcher {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #222;
+      display: flex; align-items: center; gap: 8px; padding: 10px 20px;
+    }
+    #switcher label { color: #555; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; font-family: Inter, sans-serif; margin-right: 8px; }
+    .sw-btn {
+      padding: 7px 18px; border-radius: 4px; border: 1px solid #333;
+      color: #666; cursor: pointer; font-size: 12px; font-family: Inter, sans-serif;
+      background: transparent; transition: all .15s; letter-spacing: .3px;
+    }
+    .sw-btn.on { background: #fff; color: #000; border-color: #fff; }
+    .sw-btn:hover:not(.on) { border-color: #555; color: #ccc; }
+
+    .tmpl { display: none; padding-top: 52px; }
+    .tmpl.on { display: block; }
+
+    /* ════════════════════════════════════════
+       TEMPLATE 1 — NOIR & BLANC ÉDITORIAL
+    ════════════════════════════════════════ */
+    #t1 { background: #fff; font-family: 'Inter', sans-serif; color: #0a0a0a; }
+
+    .t1-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 28px 48px; border-bottom: 1px solid #e8e8e8;
+    }
+    .t1-logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .t1-nav-r { display: flex; align-items: center; gap: 36px; }
+    .t1-nav-r a { font-size: 13px; color: #555; text-decoration: none; }
+    .t1-devis {
+      background: #0a0a0a; color: #fff; padding: 10px 22px;
+      font-size: 12px; font-weight: 600; letter-spacing: .5px; text-decoration: none;
+    }
+
+    .t1-hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 130px);
+    }
+    .t1-hero-left {
+      padding: 64px 48px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border-right: 1px solid #e8e8e8;
+    }
+    .t1-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 40px; }
+    .t1-h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(52px, 6vw, 80px);
+      font-weight: 800; line-height: 1.0; letter-spacing: -2px; color: #0a0a0a;
+    }
+    .t1-h1 .line2 { display: block; color: #0a0a0a; }
+    .t1-h1 .accent { color: #0a0a0a; -webkit-text-stroke: 2px #0a0a0a; color: transparent; }
+    .t1-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+    .t1-desc { font-size: 15px; color: #444; line-height: 1.65; max-width: 320px; }
+    .t1-cta {
+      background: #0a0a0a; color: #fff; padding: 16px 32px;
+      font-size: 13px; font-weight: 600; letter-spacing: .5px; text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .t1-hero-right {
+      background: #f5f5f5;
+      display: flex; align-items: flex-end;
+      padding: 48px;
+      position: relative; overflow: hidden;
+    }
+    .t1-photo-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #e8e8e8 0%, #d0d0d0 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .t1-photo-placeholder span { color: #aaa; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+    .t1-badge {
+      position: relative; z-index: 2;
+      background: #fff; padding: 20px 24px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .t1-badge-num { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; line-height: 1; }
+    .t1-badge-lbl { font-size: 12px; color: #666; }
+
+    .t1-services { padding: 80px 48px; border-top: 1px solid #e8e8e8; }
+    .t1-s-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 56px; }
+    .t1-s-title { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; letter-spacing: -1px; }
+    .t1-s-count { font-size: 12px; color: #999; letter-spacing: 1px; }
+    .t1-svc-list { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .t1-svc {
+      padding: 32px 28px; border-left: 1px solid #e8e8e8;
+      transition: background .2s;
+    }
+    .t1-svc:hover { background: #f8f8f8; }
+    .t1-svc:first-child { border-left: none; }
+    .t1-svc-n { font-size: 11px; color: #bbb; letter-spacing: 1px; margin-bottom: 20px; }
+    .t1-svc-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .t1-svc-desc { font-size: 13px; color: #666; line-height: 1.6; }
+
+    .t1-cta-strip {
+      background: #0a0a0a; padding: 64px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .t1-cta-strip h2 { font-family: 'Syne', sans-serif; font-size: 36px; color: #fff; font-weight: 800; letter-spacing: -1px; max-width: 480px; }
+    .t1-cta-strip a { border: 1px solid #fff; color: #fff; padding: 16px 36px; font-size: 13px; text-decoration: none; font-weight: 600; white-space: nowrap; }
+
+    .t1-footer { padding: 24px 48px; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-between; align-items: center; }
+    .t1-footer-logo { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; }
+    .t1-footer p { font-size: 12px; color: #aaa; }
+
+
+    /* ════════════════════════════════════════
+       TEMPLATE 2 — BLEU AZUR MÉDITERRANÉE
+    ════════════════════════════════════════ */
+    #t2 { background: #EBF4FF; font-family: 'Cabinet Grotesk', 'Inter', sans-serif; color: #0a1628; }
+
+    .t2-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 52px; background: #EBF4FF;
+    }
+    .t2-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #0a1628; }
+    .t2-logo sup { color: #1565C0; font-size: 11px; }
+    .t2-nav-links { display: flex; gap: 32px; }
+    .t2-nav-links a { font-size: 14px; color: #334155; text-decoration: none; font-weight: 500; }
+    .t2-devis { background: #1565C0; color: #fff; padding: 11px 26px; font-size: 13px; font-weight: 700; text-decoration: none; border-radius: 100px; }
+
+    .t2-hero { padding: 72px 52px 0; display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: end; }
+    .t2-hero-left { padding-bottom: 64px; }
+    .t2-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #DBEAFE; color: #1d4ed8; padding: 6px 14px;
+      border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 28px;
+    }
+    .t2-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #2563EB; }
+    .t2-h1 { font-size: clamp(42px, 5vw, 68px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; }
+    .t2-h1 em { font-style: normal; color: #1565C0; }
+    .t2-sub { font-size: 16px; color: #475569; line-height: 1.7; max-width: 400px; margin-bottom: 40px; }
+    .t2-btns { display: flex; gap: 12px; align-items: center; }
+    .t2-btn-p { background: #1565C0; color: #fff; padding: 14px 28px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .t2-btn-s { color: #334155; font-size: 14px; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+
+    .t2-hero-right { position: relative; }
+    .t2-photo-block {
+      background: linear-gradient(135deg, #1565C0 0%, #0d47a1 100%);
+      border-radius: 24px 24px 0 0; height: 380px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .t2-photo-block::after {
+      content: 'Photo du service';
+      color: rgba(255,255,255,0.3); font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .t2-photo-block-stripe {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+      background: #EBF4FF; border-radius: 24px 24px 0 0;
+    }
+    .t2-float-card {
+      position: absolute; bottom: 40px; left: -32px;
+      background: #fff; border-radius: 16px; padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(21,101,192,.15);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .t2-float-icon { width: 40px; height: 40px; background: #DBEAFE; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .t2-float-icon svg { width: 20px; height: 20px; stroke: #1565C0; fill: none; stroke-width: 2; }
+    .t2-float-text { font-size: 13px; }
+    .t2-float-text strong { display: block; font-weight: 700; color: #0a1628; }
+    .t2-float-text span { color: #64748b; font-size: 12px; }
+
+    .t2-services-wrap { background: #fff; margin: 0 52px; border-radius: 24px; padding: 56px 48px; margin-bottom: 0; }
+    .t2-services { padding: 64px 52px; }
+    .t2-s-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px; }
+    .t2-s-title { font-size: 34px; font-weight: 800; letter-spacing: -1px; }
+    .t2-s-sub { font-size: 14px; color: #64748b; }
+    .t2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .t2-card {
+      background: #F0F7FF; border-radius: 16px; padding: 28px 24px;
+      border: 1px solid #DBEAFE;
+      transition: all .2s;
+    }
+    .t2-card:hover { background: #1565C0; border-color: #1565C0; }
+    .t2-card:hover .t2-card-name { color: #fff; }
+    .t2-card:hover .t2-card-desc { color: rgba(255,255,255,0.7); }
+    .t2-card:hover .t2-card-num { color: rgba(255,255,255,0.4); }
+    .t2-card-num { font-size: 11px; color: #93c5fd; letter-spacing: 1px; margin-bottom: 16px; }
+    .t2-card-name { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: #0a1628; }
+    .t2-card-desc { font-size: 13px; color: #64748b; line-height: 1.55; }
+
+    .t2-bottom { background: #1565C0; padding: 64px 52px; display: flex; justify-content: space-between; align-items: center; }
+    .t2-bottom h2 { font-size: 34px; font-weight: 800; color: #fff; letter-spacing: -1px; max-width: 420px; line-height: 1.2; }
+    .t2-bottom a { background: #fff; color: #1565C0; padding: 16px 36px; font-size: 13px; font-weight: 700; text-decoration: none; border-radius: 100px; white-space: nowrap; }
+
+    .t2-footer { background: #0d47a1; padding: 24px 52px; display: flex; justify-content: space-between; align-items: center; }
+    .t2-footer-logo { font-size: 15px; font-weight: 800; color: #fff; }
+    .t2-footer p { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+
+    /* ════════════════════════════════════════
+       TEMPLATE 3 — TERRACOTTA & CRÈME
+    ════════════════════════════════════════ */
+    #t3 { background: #FAF6F1; font-family: 'Inter', sans-serif; color: #1a1208; }
+
+    .t3-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 52px;
+    }
+    .t3-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: #1a1208; }
+    .t3-logo span { color: #C1440E; }
+    .t3-nav-links { display: flex; gap: 28px; }
+    .t3-nav-links a { font-size: 14px; color: #6b5c47; text-decoration: none; font-weight: 500; }
+    .t3-devis { border: 1.5px solid #C1440E; color: #C1440E; padding: 9px 22px; font-size: 13px; font-weight: 600; text-decoration: none; border-radius: 4px; }
+
+    .t3-hero { padding: 56px 52px; display: grid; grid-template-columns: 1fr 420px; gap: 64px; min-height: calc(100vh - 200px); }
+    .t3-hero-left { display: flex; flex-direction: column; justify-content: center; }
+    .t3-location { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #C1440E; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+    .t3-location::before { content: ''; display: block; width: 24px; height: 1px; background: #C1440E; }
+    .t3-h1 { font-family: 'DM Serif Display', serif; font-size: clamp(48px, 5.5vw, 76px); line-height: 1.05; color: #1a1208; margin-bottom: 28px; }
+    .t3-h1 em { font-style: italic; color: #C1440E; }
+    .t3-sub { font-size: 16px; color: #6b5c47; line-height: 1.7; max-width: 440px; margin-bottom: 44px; }
+    .t3-btns { display: flex; gap: 12px; align-items: center; }
+    .t3-btn-main { background: #C1440E; color: #fff; padding: 14px 30px; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 4px; }
+    .t3-btn-sec { font-size: 14px; color: #6b5c47; text-decoration: none; border-bottom: 1px solid #c5b09a; padding-bottom: 2px; }
+
+    .t3-hero-right { display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+    .t3-service-pill {
+      background: #fff; border-radius: 12px; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      border: 1px solid #ede5da; cursor: default;
+      transition: all .2s;
+    }
+    .t3-service-pill:hover { background: #C1440E; border-color: #C1440E; }
+    .t3-service-pill:hover .t3-pill-name { color: #fff; }
+    .t3-service-pill:hover .t3-pill-arrow { color: #fff; }
+    .t3-pill-name { font-size: 15px; font-weight: 600; color: #1a1208; }
+    .t3-pill-arrow { color: #c5b09a; font-size: 18px; }
+
+    .t3-about { padding: 80px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid #ede5da; }
+    .t3-about-visual {
+      background: #C1440E; border-radius: 20px; height: 360px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .t3-about-visual::after { content: 'Photo terrain'; color: rgba(255,255,255,0.3); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+    .t3-about-tag {
+      position: absolute; bottom: 24px; right: 24px;
+      background: #fff; padding: 12px 18px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; color: #1a1208;
+    }
+    .t3-about-right {}
+    .t3-about-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #C1440E; margin-bottom: 16px; }
+    .t3-about-title { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1.2; color: #1a1208; margin-bottom: 20px; }
+    .t3-about-text { font-size: 15px; color: #6b5c47; line-height: 1.75; }
+
+    .t3-cta { background: #1a1208; padding: 72px 52px; display: flex; justify-content: space-between; align-items: center; border-radius: 24px; margin: 0 32px 48px; }
+    .t3-cta h2 { font-family: 'DM Serif Display', serif; font-size: 38px; color: #fff; max-width: 400px; line-height: 1.2; }
+    .t3-cta h2 em { font-style: italic; color: #C1440E; }
+    .t3-cta a { background: #C1440E; color: #fff; padding: 15px 32px; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 4px; white-space: nowrap; }
+
+    .t3-footer { padding: 24px 52px; border-top: 1px solid #ede5da; display: flex; justify-content: space-between; align-items: center; }
+    .t3-footer-logo { font-family: 'DM Serif Display', serif; font-size: 16px; color: #1a1208; }
+    .t3-footer p { font-size: 12px; color: #a89880; }
+  </style>
+</head>
+<body>
+
+  <div id="switcher">
+    <label>Style —</label>
+    <button class="sw-btn on" onclick="show(1,this)">01 · Noir Éditorial</button>
+    <button class="sw-btn" onclick="show(2,this)">02 · Bleu Azur</button>
+    <button class="sw-btn" onclick="show(3,this)">03 · Terracotta</button>
+  </div>
+
+
+  <!-- ══════════════ T1 — NOIR ÉDITORIAL ══════════════ -->
+  <div id="t1" class="tmpl on">
+    <nav class="t1-nav">
+      <div class="t1-logo">BNC</div>
+      <div class="t1-nav-r">
+        <a href="#">Services</a>
+        <a href="#">Tarifs</a>
+        <a href="#">Contact</a>
+        <a href="#" class="t1-devis">Devis gratuit →</a>
+      </div>
+    </nav>
+
+    <div class="t1-hero">
+      <div class="t1-hero-left">
+        <div>
+          <p class="t1-eyebrow">Bilel Nettoyage Côte d'Azur — Nice</p>
+          <h1 class="t1-h1">
+            Propre.<br/>
+            <span class="accent">Sérieux.</span><br/>
+            Côte d'Azur.
+          </h1>
+        </div>
+        <div class="t1-bottom">
+          <p class="t1-desc">Entretien de vos espaces privés et professionnels. Interventions régulières ou ponctuelles sur Nice et la région.</p>
+          <a href="#" class="t1-cta">Demander un devis</a>
+        </div>
+      </div>
+      <div class="t1-hero-right">
+        <div class="t1-photo-placeholder"><span>Photo de l'équipe / terrain</span></div>
+        <div class="t1-badge">
+          <span class="t1-badge-num">6</span>
+          <span class="t1-badge-lbl">services disponibles</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="t1-services">
+      <div class="t1-s-header">
+        <h2 class="t1-s-title">Nos services</h2>
+        <span class="t1-s-count">06 prestations</span>
+      </div>
+      <div class="t1-svc-list">
+        <div class="t1-svc">
+          <p class="t1-svc-n">01</p>
+          <h3 class="t1-svc-name">Contenaires</h3>
+          <p class="t1-svc-desc">Nettoyage et désinfection de vos bacs poubelles.</p>
+        </div>
+        <div class="t1-svc" style="border-left:1px solid #e8e8e8">
+          <p class="t1-svc-n">02</p>
+          <h3 class="t1-svc-name">Cage d'escalier</h3>
+          <p class="t1-svc-desc">Entretien régulier de vos parties communes.</p>
+        </div>
+        <div class="t1-svc" style="border-left:1px solid #e8e8e8">
+          <p class="t1-svc-n">03</p>
+          <h3 class="t1-svc-name">Professionnel</h3>
+          <p class="t1-svc-desc">Bureaux, commerces et espaces de travail.</p>
+        </div>
+      </div>
+      <div class="t1-svc-list" style="border-top:1px solid #e8e8e8;margin-top:0">
+        <div class="t1-svc">
+          <p class="t1-svc-n">04</p>
+          <h3 class="t1-svc-name">Sortie des poubelles</h3>
+          <p class="t1-svc-desc">Sortie et rentrée des bacs aux jours de collecte.</p>
+        </div>
+        <div class="t1-svc" style="border-left:1px solid #e8e8e8">
+          <p class="t1-svc-n">05</p>
+          <h3 class="t1-svc-name">Repassage</h3>
+          <p class="t1-svc-desc">Service à domicile, soigneux et ponctuel.</p>
+        </div>
+        <div class="t1-svc" style="border-left:1px solid #e8e8e8">
+          <p class="t1-svc-n">06</p>
+          <h3 class="t1-svc-name">RNB</h3>
+          <p class="t1-svc-desc">Remise en état après déménagement ou travaux.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="t1-cta-strip">
+      <h2>On s'occupe de tout.<br/>Vous de rien.</h2>
+      <a href="#">Demander un devis gratuit →</a>
+    </div>
+
+    <footer class="t1-footer">
+      <div class="t1-footer-logo">BNC</div>
+      <p>Bilel Nettoyage Côte d'Azur · Nice · contact@bnc-nettoyage.fr</p>
+    </footer>
+  </div>
+
+
+  <!-- ══════════════ T2 — BLEU AZUR ══════════════ -->
+  <div id="t2" class="tmpl">
+    <nav class="t2-nav">
+      <div class="t2-logo">BNC<sup>®</sup></div>
+      <div class="t2-nav-links">
+        <a href="#">Services</a>
+        <a href="#">Tarifs</a>
+        <a href="#">Contact</a>
+      </div>
+      <a href="#" class="t2-devis">Devis gratuit</a>
+    </nav>
+
+    <div class="t2-hero">
+      <div class="t2-hero-left">
+        <div class="t2-tag">Nice · Côte d'Azur</div>
+        <h1 class="t2-h1">Des espaces<br/><em>impeccables,</em><br/>sans effort.</h1>
+        <p class="t2-sub">BNC assure l'entretien de vos espaces privés et professionnels avec régularité et soin. Six services, une seule adresse.</p>
+        <div class="t2-btns">
+          <a href="#" class="t2-btn-p">Devis gratuit →</a>
+          <a href="#" class="t2-btn-s">Voir les services ↓</a>
+        </div>
+      </div>
+      <div class="t2-hero-right">
+        <div class="t2-photo-block">
+          <div class="t2-photo-block-stripe"></div>
+        </div>
+        <div class="t2-float-card">
+          <div class="t2-float-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div class="t2-float-text">
+            <strong>Intervention confirmée</strong>
+            <span>Nice — 06 · Cagnes · Antibes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="t2-services">
+      <div class="t2-s-row">
+        <h2 class="t2-s-title">Nos services</h2>
+        <span class="t2-s-sub">Six prestations disponibles</span>
+      </div>
+      <div class="t2-grid">
+        <div class="t2-card"><p class="t2-card-num">01</p><h3 class="t2-card-name">Contenaires</h3><p class="t2-card-desc">Nettoyage et désinfection de vos bacs poubelles.</p></div>
+        <div class="t2-card"><p class="t2-card-num">02</p><h3 class="t2-card-name">Cage d'escalier</h3><p class="t2-card-desc">Entretien régulier de vos parties communes.</p></div>
+        <div class="t2-card"><p class="t2-card-num">03</p><h3 class="t2-card-name">Professionnel</h3><p class="t2-card-desc">Bureaux, commerces et espaces de travail.</p></div>
+        <div class="t2-card"><p class="t2-card-num">04</p><h3 class="t2-card-name">Sortie poubelles</h3><p class="t2-card-desc">Sortie et rentrée des bacs aux jours de collecte.</p></div>
+        <div class="t2-card"><p class="t2-card-num">05</p><h3 class="t2-card-name">Repassage</h3><p class="t2-card-desc">Service à domicile, soigneux et ponctuel.</p></div>
+        <div class="t2-card"><p class="t2-card-num">06</p><h3 class="t2-card-name">RNB</h3><p class="t2-card-desc">Remise en état après déménagement ou travaux.</p></div>
+      </div>
+    </div>
+
+    <div class="t2-bottom">
+      <h2>Un espace propre,<br/>ça change tout.</h2>
+      <a href="#">Demander un devis →</a>
+    </div>
+
+    <footer class="t2-footer">
+      <div class="t2-footer-logo">BNC — Bilel Nettoyage Côte d'Azur</div>
+      <p>Nice · contact@bnc-nettoyage.fr</p>
+    </footer>
+  </div>
+
+
+  <!-- ══════════════ T3 — TERRACOTTA & CRÈME ══════════════ -->
+  <div id="t3" class="tmpl">
+    <nav class="t3-nav">
+      <div class="t3-logo">BN<span>C</span></div>
+      <div class="t3-nav-links">
+        <a href="#">Services</a>
+        <a href="#">Tarifs</a>
+        <a href="#">Contact</a>
+      </div>
+      <a href="#" class="t3-devis">Devis gratuit</a>
+    </nav>
+
+    <div class="t3-hero">
+      <div class="t3-hero-left">
+        <p class="t3-location">Côte d'Azur · Nice</p>
+        <h1 class="t3-h1">Le nettoyage,<br/>fait avec <em>soin.</em></h1>
+        <p class="t3-sub">BNC prend en charge l'entretien de vos espaces pour que vous puissiez vous concentrer sur ce qui compte. Particuliers et professionnels.</p>
+        <div class="t3-btns">
+          <a href="#" class="t3-btn-main">Demander un devis</a>
+          <a href="#" class="t3-btn-sec">Nos services</a>
+        </div>
+      </div>
+      <div class="t3-hero-right">
+        <div class="t3-service-pill"><span class="t3-pill-name">Contenaires</span><span class="t3-pill-arrow">→</span></div>
+        <div class="t3-service-pill"><span class="t3-pill-name">Cage d'escalier</span><span class="t3-pill-arrow">→</span></div>
+        <div class="t3-service-pill"><span class="t3-pill-name">Nettoyage professionnel</span><span class="t3-pill-arrow">→</span></div>
+        <div class="t3-service-pill"><span class="t3-pill-name">Sortie des poubelles</span><span class="t3-pill-arrow">→</span></div>
+        <div class="t3-service-pill"><span class="t3-pill-name">Repassage</span><span class="t3-pill-arrow">→</span></div>
+        <div class="t3-service-pill"><span class="t3-pill-name">RNB</span><span class="t3-pill-arrow">→</span></div>
+      </div>
+    </div>
+
+    <div class="t3-about">
+      <div class="t3-about-visual">
+        <div class="t3-about-tag">Nice & alentours</div>
+      </div>
+      <div class="t3-about-right">
+        <p class="t3-about-eyebrow">Qui sommes-nous</p>
+        <h2 class="t3-about-title">Un service local,<br/>des gens de confiance.</h2>
+        <p class="t3-about-text">BNC c'est Bilel et son équipe, basés sur Nice. On intervient sur la Côte d'Azur pour l'entretien de vos espaces — avec ponctualité et discrétion. Chaque prestation est réalisée avec le même soin, que ce soit chez un particulier ou dans un bureau.</p>
+      </div>
+    </div>
+
+    <div class="t3-cta">
+      <h2>Prêt à déléguer<br/>l'entretien de<br/>vos <em>espaces ?</em></h2>
+      <a href="#">Devis gratuit →</a>
+    </div>
+
+    <footer class="t3-footer">
+      <div class="t3-footer-logo">BNC</div>
+      <p>Bilel Nettoyage Côte d'Azur · Nice · contact@bnc-nettoyage.fr</p>
+    </footer>
+  </div>
+
+  <script>
+    function show(n, btn) {
+      document.querySelectorAll('.tmpl').forEach(t => t.classList.remove('on'));
+      document.querySelectorAll('.sw-btn').forEach(b => b.classList.remove('on'));
+      document.getElementById('t'+n).classList.add('on');
+      btn.classList.add('on');
+    }
+  </script>
+</body>
+</html>

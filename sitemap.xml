@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://louaidehamna-png.github.io/bilel-web-site/</loc>
+    <loc>https://meproprete.fr/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://louaidehamna-png.github.io/bilel-web-site/services.html</loc>
+    <loc>https://meproprete.fr/services.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://louaidehamna-png.github.io/bilel-web-site/contact.html</loc>
+    <loc>https://meproprete.fr/contact.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://meproprete.fr/blog/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://meproprete.fr/blog/nettoyage-cage-escalier-nice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://meproprete.fr/blog/nettoyage-airbnb-nice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://meproprete.fr/blog/nettoyage-conteneurs-nice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
