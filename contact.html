@@ -380,18 +380,42 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Envoi…';
 
-      // Encode for mailto as fallback
       const nom   = document.getElementById('f-nom').value;
       const tel   = document.getElementById('f-tel').value;
       const email = document.getElementById('f-email').value;
       const prest = document.getElementById('f-prestation').value;
       const msg   = document.getElementById('f-message').value;
-      const body  = encodeURIComponent(`Prénom & nom : ${nom}\nTéléphone : ${tel}\nEmail : ${email}\nPrestation : ${prest}\n\nMessage :\n${msg}`);
 
-      window.open(`mailto:contactmeproprete@gmail.com?subject=Demande de devis ME Propreté&body=${body}`, '_blank');
-
-      form.style.display = 'none';
-      successMsg.classList.add('show');
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'e3e25b37-0a8f-411d-95fc-c92bd175078e',
+          subject: 'Demande de devis ME Propreté',
+          from_name: nom,
+          name: nom,
+          phone: tel,
+          email: email || 'non renseigné',
+          prestation: prest,
+          message: msg,
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          form.style.display = 'none';
+          successMsg.classList.add('show');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Envoyer la demande <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 10h12M12 6l4 4-4 4"/></svg>';
+          alert('Erreur lors de l\'envoi. Contactez-nous directement par téléphone.');
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Envoyer la demande <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 10h12M12 6l4 4-4 4"/></svg>';
+        alert('Erreur réseau. Contactez-nous directement par téléphone.');
+      });
     });
 
     form.querySelectorAll('.f-input,.f-textarea').forEach(field => {
